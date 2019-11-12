@@ -22,8 +22,7 @@
         <textarea class="form-control kode" rows="6"></textarea>
       </div>
       <div class="form-group">
-        <button class="btn btn-success jalankan">Jalankan</button>
-        <a href="index.html" class="btn btn-default">Refresh</a>
+        <a href="index.html" class="btn btn-success">Jalankan</a>
       </div>
       <div class="form-group">
         <div class="panel panel-default">
@@ -40,7 +39,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script>
       hasil = function(x){
-        x = x.replace("\n", "<br>")
+        x = x.toString().replace("\n", "<br>")
         $(".hasil").html(x)
       }
     </script>

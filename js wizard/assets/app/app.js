@@ -1,16 +1,11 @@
-jalankan = function(){
-  localStorage.setItem("kode", $(".kode").val())
-  $(".jalankan").click(function(){
-    kode = $(".kode").val()
-    $(".skrip").html(kode)
-  })
-}
-
 if (localStorage.getItem("kode")){
-  $(".kode").val(localStorage.getItem("kode"))
-  jalankan()
+	$(".kode").val(localStorage.getItem("kode"))
+	kode = "try {"
+	kode += $(".kode").val()
+	kode += "} catch (error) { $('.hasil').html(error.message) }"
+	$(".skrip").html(kode)
 }
 
 $(".kode").on("keyup", function(){
-  jalankan()
+	localStorage.setItem("kode", $(".kode").val())
 })
