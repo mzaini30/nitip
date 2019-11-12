@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <style>
+      body {
+        padding-top: 2rem;
+      }
+      a, a:hover, a:visited, a:focus {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-group">
+        <div class="alert alert-warning">Untuk hasil, gunakan <code>hasil()</code></div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control kode" rows="6"></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success jalankan">Jalankan</button>
+        <a href="index.html" class="btn btn-default">Refresh</a>
+      </div>
+      <div class="form-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">Hasil</div>
+          <div class="panel-body hasil"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="pull-right">
+          <p><em><a href="https://wa.me/6281545143654">~ Zen</a></em></p>
+        </div>
+      </div>
+    </div>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script>
+      hasil = function(x){
+        x = x.replace("\n", "<br>")
+        $(".hasil").html(x)
+      }
+    </script>
+    <script class="skrip"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>
