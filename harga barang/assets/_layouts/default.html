@@ -31,8 +31,8 @@
 			border: 0 !important;
 		}
 
-		[type="search"]::-webkit-search-cancel-button {
-			-webkit-appearance: searchfield-cancel-button;
+		.hapus {
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -50,7 +50,10 @@
 				<tbody>
 					<tr>	
 						<td>
-							<input type="search" class="form-control cari-barang" placeholder="Cari apa?">
+							<div class="input-group">
+								<input type="search" class="form-control cari-barang" placeholder="Cari apa?">
+								<div class="input-group-addon hapus">&times;</div>
+							</div>
 						</td>
 						<td>
 							<a href="menu.html" class="btn btn-default">Menu</a>		
@@ -119,6 +122,12 @@
 			} else {
 				$('.hasil-pencarian-item').removeClass('sembunyi')
 			}
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+			})
 		})
 	</script>
 </body>
