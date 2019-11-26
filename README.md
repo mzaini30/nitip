@@ -1,2 +1,0 @@
-# nitip
-Nitip dulu ya.
