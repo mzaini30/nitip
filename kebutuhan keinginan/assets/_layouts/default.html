@@ -42,10 +42,16 @@
 		keinginan = Number(localStorage.getItem('keinginan'))
 		$('.progress-kebutuhan').css({
 			width: function(){
-				return kebutuhan / (kebutuhan + keinginan) + '%'
+				return kebutuhan / (kebutuhan + keinginan) * 100 + '%'
 			}
 		})
-		$('.')
+		$('.nilai-kebutuhan').html((kebutuhan * 1000).toLocaleString('id'))
+		$('.nilai-keinginan').html((keinginan * 1000).toLocaleString('id'))
+		$('.form-kebutuhan').on('submit', function(x){
+			x.preventDefault()
+			localStorage.setItem('kebutuhan', $('.input-kebutuhan').val())
+			location.href = 'index.html'
+		})
 	</script>
 </body>
 </html>

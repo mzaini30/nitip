@@ -32,7 +32,7 @@
 	<div class="form-group">
 		<div class="input-group">
 			<div class="input-group-addon">Rp</div>
-			<input type="tel" name="" id="" class="form-control" required="">
+			<input type="tel" name="" id="" class="form-control input-kebutuhan" required="">
 			<div class="input-group-addon">000</div>
 		</div>
 	</div>
@@ -54,10 +54,16 @@
 		keinginan = Number(localStorage.getItem('keinginan'))
 		$('.progress-kebutuhan').css({
 			width: function(){
-				return kebutuhan / (kebutuhan + keinginan) + '%'
+				return kebutuhan / (kebutuhan + keinginan) * 100 + '%'
 			}
 		})
-		$('.')
+		$('.nilai-kebutuhan').html((kebutuhan * 1000).toLocaleString('id'))
+		$('.nilai-keinginan').html((keinginan * 1000).toLocaleString('id'))
+		$('.form-kebutuhan').on('submit', function(x){
+			x.preventDefault()
+			localStorage.setItem('kebutuhan', $('.input-kebutuhan').val())
+			location.href = 'index.html'
+		})
 	</script>
 </body>
 </html>
