@@ -49,12 +49,12 @@
 		$('.nilai-keinginan').html((keinginan * 1000).toLocaleString('id'))
 		$('.form-kebutuhan').on('submit', function(x){
 			x.preventDefault()
-			localStorage.setItem('kebutuhan', $('.input-kebutuhan').val())
+			localStorage.setItem('kebutuhan', Number(localStorage.getItem('kebutuhan')) + Number($('.input-kebutuhan').val()))
 			location.href = 'index.html'
 		})
 		$('.form-keinginan').on('submit', function(x){
 			x.preventDefault()
-			localStorage.setItem('keinginan', $('.input-keinginan').val())
+			localStorage.setItem('keinginan', Number(localStorage.getItem('keinginan')) + Number($('.input-keinginan').val()))
 			location.href = 'index.html'
 		})
 	</script>
