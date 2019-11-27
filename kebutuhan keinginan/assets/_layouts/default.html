@@ -4,6 +4,7 @@
 	<title>Kebutuhan Keinginan</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 	<style>
 		body {
 			padding-top: 20px;
@@ -19,16 +20,32 @@
 
 		.kredit {
 			font-style: italic;
-			float: right;
-		}
-
-		.kredit:after {
-			clear: both;
+			text-align: right;
+			margin-top: 10px;
 		}
 	</style>
 </head>
 <body>
-	{{ content }}
-	<p class="kredit"><a href="https://wa.me/6281545143654">~ Zen</a></p>
+	<div class="container">
+		{{ content }}
+		<p class="kredit"><a href="https://wa.me/6281545143654">~ Zen</a></p>
+	</div>
+	<script src="vendor/jquery/jquery-3.4.1.min.js"></script>
+	<script>
+		if (!localStorage.getItem('kebutuhan')){
+			localStorage.setItem('kebutuhan', '0')
+		}
+		if (!localStorage.getItem('keinginan')){
+			localStorage.setItem('keinginan', '0')
+		}
+		kebutuhan = Number(localStorage.getItem('kebutuhan'))
+		keinginan = Number(localStorage.getItem('keinginan'))
+		$('.progress-kebutuhan').css({
+			width: function(){
+				return kebutuhan / (kebutuhan + keinginan) + '%'
+			}
+		})
+		$('.')
+	</script>
 </body>
 </html>
