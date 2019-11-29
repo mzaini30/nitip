@@ -19,7 +19,7 @@ $(function(){
 			localStorage.setItem('posisi', $('html, body').scrollTop())
 			localStorage.setItem('file', location.href.substring(location.href.lastIndexOf('/') + 1).replace(/\?bagian_.+_.+/g, '').replace(/\?posisi_.+/g, ''))
 		}
-		simpan_posisi()
+		// simpan_posisi()
 		$(window).scroll(function(){
 			simpan_posisi()
 		})
