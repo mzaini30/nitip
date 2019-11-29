@@ -5,27 +5,28 @@ $(function(){
 		$('html, body').animate({
 			scrollTop: $('.' + arah[1]).offset().top - 100
 		}, 800)
-	}
-
-	if (location.search.match(/\?posisi_.+/)){
-		posisi = location.search.replace('?posisi_', '')
+	} else if (location.search == '?biasa'){
+		console.log('biasa')
+	} else if (location.href.match(/index\.html/)){
+		console.log('biasa')
+	} else {
 		$('html, body').animate({
-			scrollTop: Number(posisi)
-		}, 800)	
+			scrollTop: localStorage.getItem('posisi')
+		}, 800)
 	}
 
 	if (typeof beranda == 'undefined'){
 		simpan_posisi = function(){
 			localStorage.setItem('posisi', $('html, body').scrollTop())
-			localStorage.setItem('file', location.href.substring(location.href.lastIndexOf('/') + 1).replace(/\?bagian_.+_.+/g, '').replace(/\?posisi_.+/g, ''))
+			localStorage.setItem('file', location.href.substring(location.href.lastIndexOf('/') + 1).replace(/\?bagian_.+_.+/g, '').replace(/\?biasa/g, ''))
 		}
-		// simpan_posisi()
+		simpan_posisi()
 		$(window).scroll(function(){
 			simpan_posisi()
 		})
 	}
 
 	if (localStorage.getItem('posisi')){
-		$('.halaman-terakhir').attr('href', localStorage.getItem('file') + '?posisi_' + localStorage.getItem('posisi'))
+		$('.halaman-terakhir').attr('href', localStorage.getItem('file'))
 	}
 })
