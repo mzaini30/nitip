@@ -10,7 +10,7 @@ $(function(){
 	if (location.search.match(/\?posisi_.+/)){
 		posisi = location.search.replace('?posisi_', '')
 		$('html, body').animate({
-			scrollTop: posisi
+			scrollTop: Number(posisi)
 		}, 800)	
 	}
 
