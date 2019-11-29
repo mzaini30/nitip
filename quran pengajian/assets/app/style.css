@@ -1,0 +1,47 @@
+@font-face {
+	font-family: 'Utsmani';
+	src: url('../aset/UthmanicHafs1 Ver09.OTF');
+}
+
+body {
+	padding-top: 100px;
+}
+
+.arab {
+	direction: rtl;
+	font-family: 'Utsmani';
+	line-height: 2;
+}
+
+.block {
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+	position: fixed;
+	top: 50px;
+	width: 100%;
+	z-index: 30;
+}
+
+.block .element {
+	padding: 9px;
+}
+
+.block .form-group {
+	margin: 0;
+}
+
+.isi {
+	line-height: 1.5;
+}
+
+.kanan {
+	float: right;
+}
+
+.kanan .btn {
+	margin-right: 6px;
+}
+
+.navbar-toggle {
+      display: none;
+}
