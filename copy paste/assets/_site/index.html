@@ -23,18 +23,26 @@
 		.hapus {
 			cursor: pointer;
 		}
+
+		.sembunyi {
+			display: none;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="navbar navbar-default navbar-fixed-bottom">
+		<table class="table table-bordered">
+	<tbody class="data-di-sini"></tbody>
+</table>
+
+<div class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
 					<td>
 						<div class="input-group">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control cari">
 							<div class="input-group-addon hapus">x</div>
 						</div>
 					</td>
@@ -49,5 +57,63 @@
 	</div>
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/dexie/dexie.js"></script>
+	<script>
+		$.expr[':'].contains = $.expr.createPseudo(function(arg){
+			return function(elem){
+				return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+			}
+		})
+
+		copy_paste = new Dexie('copy paste')
+		copy_paste.version(1).stores({
+			data: '++id, isi'
+		})
+
+		$('.tambah-data').on('submit', function(x){
+			x.preventDefault()
+			copy_paste.data.add({
+				isi: $('.isi').val()
+			}).then(function(){
+				location.href = 'tambah.html'
+			})
+		})
+
+		data_hasil = ''
+		copy_paste.data.orderBy('id').each(function(x){
+			data_hasil += '<tr class="hasil-pencarian-item"><td><textarea name="" id="" cols="30" rows="3" readonly="" class="form-control">' + x.isi + '</textarea></td><td><a href="#!" data-hapus="' + x.id + '">Hapus</a></td></tr>'
+		}).then(function(){
+			$('.data-di-sini').html(data_hasil)
+		}).then(function(){
+			$("[data-hapus]").each(function(){
+				$(this).click(function(){
+					copy_paste.data.where({
+						id: Number($(this).attr('data-hapus'))
+					}).delete().then(function(){
+						location.href = 'index.html'
+					})
+				})
+			})
+		})
+
+		$('.cari').on('keyup', function(){
+			if ($('.cari').val() != ''){
+				$('.hasil-pencarian-item').addClass('sembunyi')
+				$('.hasil-pencarian-item').each(function(){
+					if ($(this).is(":contains(" + $('.cari').val() + ")")) {
+						$(this).removeClass('sembunyi')
+					}
+				})
+			} else {
+				$('.hasil-pencarian-item').removeClass('sembunyi')
+			}
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+				$('.hasil-pencarian-item').removeClass('sembunyi')
+			})
+		})
+	</script>
 </body>
 </html>
