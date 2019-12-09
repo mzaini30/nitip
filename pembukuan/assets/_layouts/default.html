@@ -26,6 +26,7 @@
 		{{ content }}
 	</div>
 	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="vendor/dexie/dexie.js"></script>
 	<script>
 		pembukuan = new Dexie('database pembukuan')
@@ -33,8 +34,41 @@
 			data: '++id, barang, jual, modal, untung, tanggal_lengkap, tanggal_bulan, tanggal_tahun'
 		})
 
+		data_tanggal_lengkap = []
+		list_tanggal_lengkap = []
+		pembukuan.data.orderBy('id').each(function(x){
+			data_tanggal_lengkap.push([x.tanggal_lengkap, x.untung])
+			if (!(list_tanggal_lengkap.indexOf(x.tanggal_lengkap) > -1)){
+				list_tanggal_lengkap.push(x.tanggal_lengkap)
+			}
+		}).then(function(){
+			console.log(list_tanggal_lengkap)
+		})
+
 		$('.tambah').on('submit', function(x){
 			x.preventDefault()
+			barang = $('.nama-barang').val()
+			jual = Number($('.harga-jual').val()) * 1000
+			modal = Number($('.modal').val()) * 1000
+			untung = jual - modal
+			tanggal = new Date()
+			hari = tanggal.getDate()
+			bulan = tanggal.getMonth() + 1
+			tahun = tanggal.getYear() + 1900
+			tanggal_lengkap = hari + '/' + bulan + '/' + tahun
+			tanggal_bulan = bulan + '/' + tahun
+			tanggal_tahun = tahun
+			pembukuan.data.add({
+				barang: barang,
+				jual: jual,
+				modal: modal,
+				untung: untung,
+				tanggal_lengkap: tanggal_lengkap,
+				tanggal_bulan: tanggal_bulan,
+				tanggal_tahun: tanggal_tahun
+			}).then(function(){
+				location.href = 'tambah.html'
+			})
 		})
 	</script>
 </body>

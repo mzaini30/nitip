@@ -23,7 +23,25 @@
 </head>
 <body>
 	<div class="container">
-		<div class="navbar navbar-default navbar-fixed-bottom">
+		<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#harian" aria-controls="harian" role="tab" data-toggle="tab">Harian</a></li>
+    <li role="presentation"><a href="#bulanan" aria-controls="bulanan" role="tab" data-toggle="tab">Bulanan</a></li>
+    <li role="presentation"><a href="#tahunan" aria-controls="tahunan" role="tab" data-toggle="tab">Tahunan</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="harian"><div class="tampil-harian"></div></div>
+    <div role="tabpanel" class="tab-pane" id="bulanan"><div class="tampil-bulanan"></div></div>
+    <div role="tabpanel" class="tab-pane" id="tahunan"><div class="tampil-tahunan"></div></div>
+  </div>
+
+</div>
+
+<div class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
 		<table class="table table-bordered">
 			<tbody>
@@ -38,6 +56,7 @@
 </div>
 	</div>
 	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="vendor/dexie/dexie.js"></script>
 	<script>
 		pembukuan = new Dexie('database pembukuan')
@@ -45,8 +64,41 @@
 			data: '++id, barang, jual, modal, untung, tanggal_lengkap, tanggal_bulan, tanggal_tahun'
 		})
 
+		data_tanggal_lengkap = []
+		list_tanggal_lengkap = []
+		pembukuan.data.orderBy('id').each(function(x){
+			data_tanggal_lengkap.push([x.tanggal_lengkap, x.untung])
+			if (!(list_tanggal_lengkap.indexOf(x.tanggal_lengkap) > -1)){
+				list_tanggal_lengkap.push(x.tanggal_lengkap)
+			}
+		}).then(function(){
+			console.log(list_tanggal_lengkap)
+		})
+
 		$('.tambah').on('submit', function(x){
 			x.preventDefault()
+			barang = $('.nama-barang').val()
+			jual = Number($('.harga-jual').val()) * 1000
+			modal = Number($('.modal').val()) * 1000
+			untung = jual - modal
+			tanggal = new Date()
+			hari = tanggal.getDate()
+			bulan = tanggal.getMonth() + 1
+			tahun = tanggal.getYear() + 1900
+			tanggal_lengkap = hari + '/' + bulan + '/' + tahun
+			tanggal_bulan = bulan + '/' + tahun
+			tanggal_tahun = tahun
+			pembukuan.data.add({
+				barang: barang,
+				jual: jual,
+				modal: modal,
+				untung: untung,
+				tanggal_lengkap: tanggal_lengkap,
+				tanggal_bulan: tanggal_bulan,
+				tanggal_tahun: tanggal_tahun
+			}).then(function(){
+				location.href = 'tambah.html'
+			})
 		})
 	</script>
 </body>
