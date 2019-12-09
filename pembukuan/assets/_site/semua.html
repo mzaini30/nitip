@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pembukuan</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+
+		.navbar-fixed-bottom .table {
+			margin-bottom: 0;
+		}
+
+		.navbar-fixed-bottom .table,
+		.navbar-fixed-bottom td {
+			border: none !important;
+		}
+
+		.navbar-fixed-bottom .btn {
+			width: 100%;
+		}
+
+		.tab-pane {
+			padding-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="semua-data"></div>
+
+<div class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container">
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>
+						<a href="index.html" class="btn btn-default">Beranda</a>
+					</td>
+					<td>
+						<a href="tambah.html" class="btn btn-default">Tambah</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/dexie/dexie.js"></script>
+	<script>
+		pembukuan = new Dexie('database pembukuan')
+		pembukuan.version(1).stores({
+			data: '++id, barang, jual, modal, untung, tanggal_lengkap, tanggal_bulan, tanggal_tahun'
+		})
+
+		
+
+		
+			teks = ''
+			pembukuan.data.orderBy('id').reverse().each(function(x){
+				teks += '<div class="panel panel-default"><div class="panel-body"><a href="#!" class="close" data-hapus="' + x.id + '">&times;</a>Tanggal: ' + x.tanggal_lengkap + ' <br>Barang: ' + x.barang + ' <br>Jual: Rp ' + x.jual.toLocaleString("id") + ' <br>Modal: Rp ' + x.modal.toLocaleString("id") + ' <br></div></div>'
+			}).then(function(){
+				$('.semua-data').html(teks)
+			}).then(function(){
+				$("[data-hapus]").each(function(){
+					$(this).click(function(){
+						pembukuan.data.where({
+							id: Number($(this).attr('data-hapus'))
+						}).delete().then(function(){
+							location.href = 'semua.html'
+						})
+					})
+				})
+			})
+		
+
+		
+		
+	</script>
+</body>
+</html>

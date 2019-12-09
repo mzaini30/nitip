@@ -19,6 +19,14 @@
 		.navbar-fixed-bottom td {
 			border: none !important;
 		}
+
+		.navbar-fixed-bottom .btn {
+			width: 100%;
+		}
+
+		.tab-pane {
+			padding-top: 10px;
+		}
 	</style>
 </head>
 <body>
@@ -49,6 +57,9 @@
 					<td>
 						<a href="tambah.html" class="btn btn-default">Tambah</a>
 					</td>
+					<td>
+						<a href="semua.html" class="btn btn-default">Semua</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -64,45 +75,96 @@
 			data: '++id, barang, jual, modal, untung, tanggal_lengkap, tanggal_bulan, tanggal_tahun'
 		})
 
-		list_tanggal_lengkap = []
-		pembukuan.data.orderBy('id').each(function(x){
-			if (!(list_tanggal_lengkap.indexOf(x.tanggal_lengkap) > -1)){
-				list_tanggal_lengkap.push(x.tanggal_lengkap)
-			}
-		}).then(function(){
-			console.log(list_tanggal_lengkap)
-			kosong = []
-			for (n in list_tanggal_lengkap){
-				kosong.push(0)
-			}
-			console.log(kosong)
-		})
-
-		$('.tambah').on('submit', function(x){
-			x.preventDefault()
-			barang = $('.nama-barang').val()
-			jual = Number($('.harga-jual').val()) * 1000
-			modal = Number($('.modal').val()) * 1000
-			untung = jual - modal
-			tanggal = new Date()
-			hari = tanggal.getDate()
-			bulan = tanggal.getMonth() + 1
-			tahun = tanggal.getYear() + 1900
-			tanggal_lengkap = hari + '/' + bulan + '/' + tahun
-			tanggal_bulan = bulan + '/' + tahun
-			tanggal_tahun = tahun
-			pembukuan.data.add({
-				barang: barang,
-				jual: jual,
-				modal: modal,
-				untung: untung,
-				tanggal_lengkap: tanggal_lengkap,
-				tanggal_bulan: tanggal_bulan,
-				tanggal_tahun: tanggal_tahun
+		
+			list_tanggal_lengkap = []
+			pembukuan.data.orderBy('id').reverse().each(function(x){
+				if (!(list_tanggal_lengkap.indexOf(x.tanggal_lengkap) > -1)){
+					list_tanggal_lengkap.push(x.tanggal_lengkap)
+				}
 			}).then(function(){
-				location.href = 'tambah.html'
+				kosong_tanggal_lengkap = []
+				for (n in list_tanggal_lengkap){
+					kosong_tanggal_lengkap.push(0)
+				}
+				pembukuan.data.orderBy('id').reverse().each(function(x){
+					for (n in list_tanggal_lengkap){
+						if (x.tanggal_lengkap == list_tanggal_lengkap[n]){
+							nilai = 0
+							nilai = Number(kosong_tanggal_lengkap[n])
+							nilai += Number(x.untung)
+							kosong_tanggal_lengkap[n] = nilai
+						}
+					}
+				}).then(function(){
+					teks = ''
+					for (n in kosong_tanggal_lengkap){
+						teks += '<tr><td>' + list_tanggal_lengkap[n] + '</td><td>Rp ' + kosong_tanggal_lengkap[n].toLocaleString('id') + '</td></tr>'
+					}
+					$('.tampil-harian').html('<table class="table table-bordered"><thead><tr><th>Tanggal</th><th>Nominal</th></tr></thead><tbody>' + teks + '</tbody></table>')
+				})
 			})
-		})
+
+			list_tanggal_bulan = []
+			pembukuan.data.orderBy('id').reverse().each(function(x){
+				if (!(list_tanggal_bulan.indexOf(x.tanggal_bulan) > -1)){
+					list_tanggal_bulan.push(x.tanggal_bulan)
+				}
+			}).then(function(){
+				kosong_tanggal_bulan = []
+				for (n in list_tanggal_bulan){
+					kosong_tanggal_bulan.push(0)
+				}
+				pembukuan.data.orderBy('id').reverse().each(function(x){
+					for (n in list_tanggal_bulan){
+						if (x.tanggal_bulan == list_tanggal_bulan[n]){
+							nilai = 0
+							nilai = Number(kosong_tanggal_bulan[n])
+							nilai += Number(x.untung)
+							kosong_tanggal_bulan[n] = nilai
+						}
+					}
+				}).then(function(){
+					teks = ''
+					for (n in kosong_tanggal_bulan){
+						teks += '<tr><td>' + list_tanggal_bulan[n] + '</td><td>Rp ' + kosong_tanggal_bulan[n].toLocaleString('id') + '</td></tr>'
+					}
+					$('.tampil-bulanan').html('<table class="table table-bordered"><thead><tr><th>Tanggal</th><th>Nominal</th></tr></thead><tbody>' + teks + '</tbody></table>')
+				})
+			})
+
+			list_tanggal_tahun = []
+			pembukuan.data.orderBy('id').reverse().each(function(x){
+				if (!(list_tanggal_tahun.indexOf(x.tanggal_tahun) > -1)){
+					list_tanggal_tahun.push(x.tanggal_tahun)
+				}
+			}).then(function(){
+				kosong_tanggal_tahun = []
+				for (n in list_tanggal_tahun){
+					kosong_tanggal_tahun.push(0)
+				}
+				pembukuan.data.orderBy('id').reverse().each(function(x){
+					for (n in list_tanggal_tahun){
+						if (x.tanggal_tahun == list_tanggal_tahun[n]){
+							nilai = 0
+							nilai = Number(kosong_tanggal_tahun[n])
+							nilai += Number(x.untung)
+							kosong_tanggal_tahun[n] = nilai
+						}
+					}
+				}).then(function(){
+					teks = ''
+					for (n in kosong_tanggal_tahun){
+						teks += '<tr><td>' + list_tanggal_tahun[n] + '</td><td>Rp ' + kosong_tanggal_tahun[n].toLocaleString('id') + '</td></tr>'
+					}
+					$('.tampil-tahunan').html('<table class="table table-bordered"><thead><tr><th>Tanggal</th><th>Nominal</th></tr></thead><tbody>' + teks + '</tbody></table>')
+				})
+			})
+		
+
+		
+
+		
+		
 	</script>
 </body>
 </html>
