@@ -64,15 +64,18 @@
 			data: '++id, barang, jual, modal, untung, tanggal_lengkap, tanggal_bulan, tanggal_tahun'
 		})
 
-		data_tanggal_lengkap = []
 		list_tanggal_lengkap = []
 		pembukuan.data.orderBy('id').each(function(x){
-			data_tanggal_lengkap.push([x.tanggal_lengkap, x.untung])
 			if (!(list_tanggal_lengkap.indexOf(x.tanggal_lengkap) > -1)){
 				list_tanggal_lengkap.push(x.tanggal_lengkap)
 			}
 		}).then(function(){
 			console.log(list_tanggal_lengkap)
+			kosong = []
+			for (n in list_tanggal_lengkap){
+				kosong.push(0)
+			}
+			console.log(kosong)
 		})
 
 		$('.tambah').on('submit', function(x){
