@@ -13,10 +13,30 @@
 	</style>
 </head>
 <body>
-	<div class="container"></div>
+	<div class="container">
+		<div class="form-group">
+			<label for="">Masukkan Angka</label>
+			<input type="tel" class="form-control isian" placeholder="Contoh: 80.78.60">
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Hasil</div>
+			<div class="panel-body">
+				Rata-rata: <span class="rata-rata">0</span>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
 	<script type="text/javascript">
-		
+		$('.isian').on('keyup', function(){
+			data = $('.isian').val().split('.')
+
+			total = 0
+			for (n in data){
+				total += Number(data[n])
+			}
+			rata_rata = total / data.length
+			$('.rata-rata').html(rata_rata)
+		})
 	</script>
 </body>
 </html>
