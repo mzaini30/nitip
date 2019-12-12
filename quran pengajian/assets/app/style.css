@@ -35,13 +35,18 @@ body {
 }
 
 .kanan {
-	float: right;
+	a-float: right;
 }
 
 .kanan .btn {
-	margin-right: 6px;
+	a-margin-right: 6px;
+	width: 100%;
 }
 
 .navbar-toggle {
       display: none;
+}
+
+.selanjutnya {
+	width: 100%;
 }

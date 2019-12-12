@@ -18,7 +18,7 @@ $(function(){
 	if (typeof beranda == 'undefined'){
 		simpan_posisi = function(){
 			localStorage.setItem('posisi', $(document).scrollTop())
-			$('.navbar-brand').html(localStorage.getItem('posisi'))
+			// $('.navbar-brand').html(localStorage.getItem('posisi'))
 			localStorage.setItem('file', location.href.substring(location.href.lastIndexOf('/') + 1).replace(/\?bagian_.+_.+/g, '').replace(/\?biasa/g, ''))
 		}
 		simpan_posisi()
