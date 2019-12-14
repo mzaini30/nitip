@@ -50,3 +50,7 @@ body {
 .selanjutnya {
 	width: 100%;
 }
+
+.hapus {
+	cursor: pointer;
+}
