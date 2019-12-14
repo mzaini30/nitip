@@ -9,3 +9,9 @@ $('form').on('submit', function(event){
 $('.navbar-nav a').click(function(){
 	$('.navbar-toggle').click()
 }) 
+
+$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+			})
+		})
