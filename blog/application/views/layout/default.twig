@@ -6,6 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="{{ site_url() }}aset/vendor/bootstrap/css/bootstrap.min.css">
 	<style type="text/css">
+		* {
+			word-wrap: break-word;
+		}
+		
 		body {
 			padding-top: 70px;
 		}
@@ -37,6 +41,13 @@
 	</div>
 	{% block bawah %}{% endblock %}
 	<script src="{{ site_url() }}aset/vendor/jquery/jquery.min.js"></script>
+	<script>
+		$.expr[':'].contains = $.expr.createPseudo(function(arg){
+			return function(elem){
+				return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+			}
+		});
+	</script>
 	{% block skrip %}{% endblock %}
 </body>
 </html>
