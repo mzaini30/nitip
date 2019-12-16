@@ -3,7 +3,7 @@
 {% block isi %}
     <div class="list-group">
     	{% for x in data %}
-    	    <a href="{{ site_url() }}{{ x.id }}" class="list-group-item hasil-pencarian-item">{{ x.judul }}</a>
+    	    <a href="{{ site_url() }}{{ x.id }}" class="list-group-item hasil-pencarian-item">{{ x.judul }}<!-- {{ x.isi }} --></a>
     	{% endfor %}
     </div>
 {% endblock %}
