@@ -1,0 +1,25 @@
+{% extends 'layout/default.twig' %}
+
+{% block bawah %}
+    <div class="navbar navbar-default navbar-fixed-bottom">
+    	<div class="container">
+    		<div class="navbar-header">
+    			<table class="table table-bordered">
+    				<tbody>
+    					<tr>
+    						<td><a href="{{ site_url() }}tambah" class="btn btn-default">Tambah</a></td>
+    					</tr>
+    				</tbody>
+    			</table>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}
+
+{% block head %}
+    <style>
+		body {
+			padding-bottom: 50px;
+		}
+    </style>
+{% endblock %}
