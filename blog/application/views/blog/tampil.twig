@@ -1,11 +1,9 @@
 {% extends 'layout/default.twig' %}
 
 {% block isi %}
-    <div class="list-group">
-    	{% for x in data %}
-    	    <a href="{{ site_url() }}{{ x.id }}" class="list-group-item">{{ x.judul }}</a>
-    	{% endfor %}
-    </div>
+    <h3>{{ data.judul }}</h3>
+    <p>{{ data.isi }}</p>
+    <p>{{ data.tanggal }}</p>
 {% endblock %}
 
 {% block bawah %}
@@ -15,7 +13,9 @@
     			<table class="table table-bordered">
     				<tbody>
     					<tr>
-    						<td><a href="{{ site_url() }}tambah" class="btn btn-default">Tambah</a></td>
+                            <td><a href="{{ site_url() }}tambah" class="btn btn-default">Tambah</a></td>
+    						<td><a href="{{ site_url() }}" class="btn btn-warning">Edit</a></td>
+                            <td><a href="{{ site_url() }}" class="btn btn-danger">Hapus</a></td>
     					</tr>
     				</tbody>
     			</table>
@@ -29,5 +29,9 @@
 		body {
 			padding-bottom: 50px;
 		}
+
+        h3 {
+            margin-top: 0;
+        }
     </style>
 {% endblock %}

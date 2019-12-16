@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Blog extends MY_Controller {
 	public function index(){
 		$data = $this->db->order_by('id', 'desc')->get('blog')->result();
-		$this->twig->display('blog/beranda', $data);
+		$this->twig->display('blog/beranda', compact('data'));
 	}
 
 	public function tambah(){
@@ -16,5 +16,10 @@ class Blog extends MY_Controller {
 			$this->db->insert('blog', $data);
 			redirect(site_url());
 		}
+	}
+
+	public function tampil($id){
+		$data = $this->db->where('id', $id)->get('blog')->result()[0];
+		$this->twig->display('blog/tampil', compact('data'));		
 	}
 }
