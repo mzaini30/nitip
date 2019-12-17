@@ -1,0 +1,56 @@
+{% extends 'layout/default.twig' %}
+
+{% block isi %}
+    <h3>{{ data.judul }}</h3>
+        <div class="form-group">
+            <textarea name="isi" id="" cols="30" rows="10" class="form-control" readonly>{{ data.isi }}</textarea>
+        </div>
+    <p>{{ data.tanggal }}</p>
+{% endblock %}
+
+{% block judul %}{{ data.judul }}{% endblock %}
+
+{% block bawah %}
+    <div class="navbar navbar-default navbar-fixed-bottom">
+    	<div class="container">
+    		<div class="navbar-header">
+    			<table class="table table-bordered">
+    				<tbody>
+    					<tr>
+                            <td><a href="{{ site_url() }}tambah" class="btn btn-default">Tambah</a></td>
+    						<td><a href="{{ site_url() }}edit/{{ data.id }}" class="btn btn-warning">Edit</a></td>
+                            <td><a href="#!" class="btn btn-danger hapus">Hapus</a></td>
+    					</tr>
+    				</tbody>
+    			</table>
+    		</div>
+    	</div>
+    </div>
+{% endblock %}
+
+{% block head %}
+    <style>
+		body {
+			padding-bottom: 50px;
+		}
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .isi {
+            white-space: pre-wrap;
+        }
+    </style>
+{% endblock %}
+
+{% block skrip %}
+    <script>
+        $('.hapus').click(function(){
+            hapus = confirm('Hapus kah?')
+            if (hapus){
+                location.href = '{{ site_url() }}hapus/{{ data.id }}'
+            }
+        });
+    </script>
+{% endblock %}

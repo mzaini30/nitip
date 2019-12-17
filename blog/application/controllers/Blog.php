@@ -14,7 +14,9 @@ class Blog extends MY_Controller {
 			$data = (object) $this->input->post();
 			$data->tanggal = date('d/m/Y H:i:s');
 			$this->db->insert('blog', $data);
-			redirect(site_url());
+    $menuju = $this->db->order_by('id', 'desc')->get('blog')->result()[0];
+    redirect(site_url() . $menuju->id);
+			// redirect(site_url());
 		}
 	}
 
@@ -31,7 +33,11 @@ class Blog extends MY_Controller {
 
 	public function tampil($id){
 		$data = $this->db->where('id', $id)->get('blog')->result()[0];
-		$this->twig->display('blog/tampil', compact('data'));		
+   $acak = $this->db->order_by('id', 'random')->get('blog')->result()[0];
+   if ($id == $acak->id){
+     $acak = $this->db->order_by('id', 'random')->get('blog')->result()[1];
+   }
+		$this->twig->display('blog/tampil', compact('data', 'acak'));		
 	}
 
 	public function hapus($id){
