@@ -1,0 +1,186 @@
+---
+family:
+  - 318.jpg
+  - 319 ht.jpg
+  - 338.jpg
+  - 339 a.jpg
+  - 339 h.jpg
+  - 5863.jpg
+  - 586.jpg
+  - 5923.jpg
+  - 5963.jpg
+  - 5973.jpg
+  - 598 p.jpg
+  - 718 a.jpg
+  - 7233 t.jpg
+  - 738.jpg
+  - 7763.jpg
+  - 776.jpg
+  - 7973.jpg
+  - 823 at.jpg
+  - 823 ft.jpg
+  - 823 mt.jpg
+  - 845 dt.jpg
+  - 845 ft.jpg
+  - 845 gt.jpg
+  - 853 at.jpg
+  - 853 dt.jpg
+  - 853 ft.jpg
+  - 853 gt.jpg
+  - 853 mt.jpg
+  - 893 at.jpg
+  - 893 ct.jpg
+  - 902 k.jpg
+  - 9061 t.jpg
+  - 906.jpg
+  - 9231 t.jpg
+  - 9236 t.jpg
+  - 923 dt.jpg
+  - 923 kt.jpg
+  - 923 pt.jpg
+  - 938.jpg
+  - 943 kt.jpg
+  - 9931 t.jpg
+  - 9933 t.jpg
+  - 993 at.jpg
+  - 993 dt.jpg
+  - 993 gt.jpg
+  - 993 kt.jpg
+  - 993 mt.jpg
+  - 993 pt.jpg
+  - 101.jpg
+  - 136.jpg
+  - 138.jpg
+  - 1738.jpg
+  - 173.jpg
+  - 1815.jpg
+  - 1816.jpg
+  - 1817.jpg
+  - 181c.jpg
+  - 181e.jpg
+  - 181f.jpg
+  - 1827.jpg
+  - 1858.jpg
+  - 1868.jpg
+  - 2017.jpg
+  - 203e.jpg
+  - 2068.jpg
+  - 2115.jpg
+  - 2116.jpg
+  - 2117.jpg
+  - 211c.jpg
+  - 211e.jpg
+  - 211f.jpg
+  - 2121.jpg
+  - 2158.jpg
+  - 218a.jpg
+  - 2211.jpg
+  - 2213.jpg
+  - 2218.jpg
+  - 238.jpg
+  - 323.jpg
+  - 323 juga.jpg
+  - 3712.jpg
+  - 5519.jpg
+  - 551b.jpg
+  - 6619.jpg
+  - 661b.jpg
+  - 718a.jpg
+  - 7718.jpg
+  - 7758.jpg
+  - 8288.jpg
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Family</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+			padding-top: 20px;
+			padding-bottom: 70px;
+		}
+
+		.panel-body {
+			padding: 0;
+		}
+
+		.navbar-brand {
+			width: 100%;
+		}
+
+		img {
+			max-width: 100%;
+			display: block;
+			margin: auto;
+		}
+
+		a,
+		a:hover,
+		a:visited,
+		a:focus,
+		a:active {
+			text-decoration: none;
+		}
+
+		.kredit {
+			font-style: italic;
+			float: right;
+		}
+
+		.kredit:after {
+			clear: both;
+		}
+
+		.hapus {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		{% assign family = page.family | sort %}
+		{% for x in family %}
+			<div class="panel panel-default bagian">
+				<div class="panel-heading">{{ x | replace: '.jpg', '' | upcase }}</div>
+				<div class="panel-body">
+					<img src="gambar/{{ x }}" alt="">
+				</div>
+			</div>
+		{% endfor %}
+		<p class="kredit"><a href="https://wa.me/6281545143654">~ Zen</a></p>
+	</div>
+	<div class="navbar navbar-fixed-bottom navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<div class="form-group navbar-brand">
+					<div class="input-group">
+						<input type="tel" class="form-control cari" placeholder="Cari">
+						<div class="input-group-addon hapus">&times;</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+	<script type="text/javascript">
+		$('.cari').on('keyup', function(){
+			$('.bagian').hide()
+			$('.bagian').each(function(){
+				if ($(this).is(':contains(' + $('.cari').val() + ')')) {
+					$(this).show()
+				}
+			})
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+			})
+		})
+	</script>
+</body>
+</html>
