@@ -388,13 +388,6 @@
 			</div>
 		
 			<div class="panel panel-default bagian">
-				<div class="panel-heading">718 A</div>
-				<div class="panel-body">
-					<img src="gambar/718 a.jpg" alt="">
-				</div>
-			</div>
-		
-			<div class="panel panel-default bagian">
 				<div class="panel-heading">718A</div>
 				<div class="panel-body">
 					<img src="gambar/718a.jpg" alt="">
@@ -702,6 +695,7 @@
 		$('.hapus').each(function(){
 			$(this).click(function(){
 				$(this).parent().find('.form-control').val('')
+				$('.bagian').show()
 			})
 		})
 	</script>
