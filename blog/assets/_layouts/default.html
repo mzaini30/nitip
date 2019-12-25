@@ -4,8 +4,28 @@
 	<title>Blog</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<style type="text/css">
+		body {
+			margin-top: 20px;
+			margin-bottom: 50px;
+		}
+
+		.navbar-fixed-bottom .table {
+			margin-bottom: 0;
+		}
+
+		.navbar-fixed-bottom .btn {
+			width: 100%;
+		}
+	</style>
 </head>
 <body>
-
+	<div class="container">
+		{{ content }}
+	</div>
+	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/dexie/dexie.js"></script>
+	<script type="text/javascript" src="vendor/marked/marked.min.js"></script>
 </body>
 </html>
