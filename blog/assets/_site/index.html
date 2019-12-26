@@ -18,11 +18,20 @@
 		.navbar-fixed-bottom .btn {
 			width: 100%;
 		}
+
+		.sembunyi {
+			display: none;
+		}
+
+		.full {
+			width: 100%;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="isi"></div>
+		<p><a href="https://apkzen.github.io" class="btn btn-default full">APK Lainnya</a></p>
+<div class="isi"></div>
 
 <div class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
@@ -30,15 +39,40 @@
 			<tbody>
 				<tr>
 					<td><a href="tambah.html" class="btn btn-success">Tambah</a></td>
-					<td><a href="https://apkzen.github.io" class="btn btn-default">APK Lainnya</a></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
 	</div>
+	<br>
 	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="vendor/dexie/dexie.js"></script>
 	<script type="text/javascript" src="vendor/marked/marked.min.js"></script>
+	<script type="text/javascript">
+		$.expr[':'].contains = $.expr.createPseudo(function(arg){
+			return function(elem){
+				return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+			}
+		})
+
+		blog = new Dexie('database blog')
+		blog.version(1).stores({
+			data: '++id, judul, isi, isi_html'
+		})
+
+		
+
+		
+			data_hasil = ''
+			blog.data.orderBy('id').reverse().each(function(x){
+				data_hasil += '<a href="tampil.html?' + x.id + '" class="list-group-item">' + x.judul + ' <span class="sembunyi">' + x.isi + '</span></a>'
+			}).then(function(){
+				$('.isi').html('<div class="list-group">' + data_hasil + '</div>')
+			})
+		
+
+		
+	</script>
 </body>
 </html>

@@ -18,6 +18,14 @@
 		.navbar-fixed-bottom .btn {
 			width: 100%;
 		}
+
+		.sembunyi {
+			display: none;
+		}
+
+		.full {
+			width: 100%;
+		}
 	</style>
 </head>
 <body>
@@ -25,11 +33,14 @@
 		<form action="" class="tambah">
 	<div class="form-group">
 		<label for="">Judul</label>
-		<input type="text" class="form-control" required="">
+		<input type="text" class="form-control judul" required="">
 	</div>
 	<div class="form-group">
 		<label for="">Isi</label>
-		<textarea name="" id="" cols="30" rows="10" class="form-control" required=""></textarea>
+		<textarea name="" id="" cols="30" rows="10" class="form-control isi" required=""></textarea>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Oke" class="btn btn-success">
 	</div>
 </form>
 <br><br>
@@ -46,8 +57,38 @@
 	</div>
 </div>
 	</div>
+	<br>
 	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="vendor/dexie/dexie.js"></script>
 	<script type="text/javascript" src="vendor/marked/marked.min.js"></script>
+	<script type="text/javascript">
+		$.expr[':'].contains = $.expr.createPseudo(function(arg){
+			return function(elem){
+				return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0
+			}
+		})
+
+		blog = new Dexie('database blog')
+		blog.version(1).stores({
+			data: '++id, judul, isi, isi_html'
+		})
+
+		
+			$('.tambah').on('submit', function(x){
+				x.preventDefault()
+				blog.data.add({
+					judul: $('.judul').val(),
+					isi: $('.isi').val(),
+					isi_html: marked($('.isi').val())
+				}).then(function(){
+					location.href = 'index.html'
+				})
+			})
+		
+
+		
+
+		
+	</script>
 </body>
 </html>
