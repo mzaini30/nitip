@@ -34,21 +34,27 @@
 </head>
 <body>
 	<div class="container">
-		<p><a href="https://apkzen.github.io" class="btn btn-default full">APK Lainnya</a></p>
-<div class="isi"></div>
+		<form action="" class="edit">
+	<div class="form-group">
+		<label for="">Judul</label>
+		<input type="text" class="form-control judul" required="">
+	</div>
+	<div class="form-group">
+		<label for="">Isi</label>
+		<textarea name="" id="" cols="30" rows="10" class="form-control isi" required=""></textarea>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Oke" class="btn btn-success">
+	</div>
+</form>
+<br><br>
 
 <div class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
-					<td>
-						<div class="input-group">
-							<input type="text" class="form-control cari">
-							<span class="input-group-addon hapus">&times;</span>
-						</div>
-					</td>
-					<td><a href="tambah.html" class="btn btn-success">Tambah</a></td>
+					<td><a href="index.html" class="btn btn-default">Beranda</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -74,16 +80,27 @@
 		
 
 		
-			data_hasil = ''
-			blog.data.orderBy('id').reverse().each(function(x){
-				data_hasil += '<a href="tampil.html?' + x.id + '" class="list-group-item item-cari">' + x.judul + ' <span class="sembunyi">' + x.isi + '</span></a>'
+
+		
+
+		
+			blog.data.where({
+				id: Number(location.search.substring(1))
+			}).each(function(x){
+				$('.judul').val(x.judul)
+				$('.isi').val(x.isi)
 			}).then(function(){
-				$('.isi').html('<div class="list-group">' + data_hasil + '</div>')
+				$('.edit').on('submit', function(x){
+					x.preventDefault()
+					blog.data.update(Number(location.search.substring(1)), {
+						judul: $('.judul').val(),
+						isi: $('.isi').val(),
+						isi_html: marked($('.isi').val())
+					}).then(function(){
+						location.href = 'tampil.html' + location.search
+					})
+				})	
 			})
-		
-
-		
-
 		
 
 		$('.cari').on('keyup', function(){

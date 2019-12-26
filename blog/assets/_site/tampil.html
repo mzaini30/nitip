@@ -26,6 +26,10 @@
 		.full {
 			width: 100%;
 		}
+
+		.hapus {
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
@@ -38,7 +42,9 @@
 			<tbody>
 				<tr>
 					<td><a href="index.html" class="btn btn-default">Beranda</a></td>
-					<td><a href="tambah.html" class="btn btn-success">Tambah</a></td>
+					<td><a href="tambah.html" class="btn btn-success">&plus;</a></td>
+					<td><a href="#!" class="btn btn-warning edit">Edit</a></td>
+					<td><a href="#!" class="btn btn-danger hapus">&times;</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -74,7 +80,37 @@
 			}).then(function(){
 				$('.isi').html(isi)
 			})
+			$('.edit').attr('href', 'edit.html' + location.search)
+			$('.hapus').click(function(){
+				blog.data.where({
+					id: Number(location.search.substring(1))
+				}).delete().then(function(){
+					location.href = 'index.html'
+				})
+			})
 		
+
+		
+
+		$('.cari').on('keyup', function(){
+			if ($('.cari').val() != ''){
+				$('.item-cari').addClass('sembunyi')
+				$('.item-cari').each(function(){
+					if ($(this).is(":contains(" + $('.cari').val() + ")")) {
+						$(this).removeClass('sembunyi')
+					}
+				})
+			} else {
+				$('.item-cari').removeClass('sembunyi')
+			}
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+				$('.item-cari').removeClass('sembunyi')
+			})
+		})
 	</script>
 </body>
 </html>

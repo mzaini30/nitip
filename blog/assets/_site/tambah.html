@@ -26,6 +26,10 @@
 		.full {
 			width: 100%;
 		}
+
+		.hapus {
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
@@ -81,7 +85,9 @@
 					isi: $('.isi').val(),
 					isi_html: marked($('.isi').val())
 				}).then(function(){
-					location.href = 'index.html'
+					blog.data.orderBy('id').reverse().limit(1).each(function(x){
+						location.href = 'tampil.html?' + x.id
+					})
 				})
 			})
 		
@@ -89,6 +95,28 @@
 		
 
 		
+
+		
+
+		$('.cari').on('keyup', function(){
+			if ($('.cari').val() != ''){
+				$('.item-cari').addClass('sembunyi')
+				$('.item-cari').each(function(){
+					if ($(this).is(":contains(" + $('.cari').val() + ")")) {
+						$(this).removeClass('sembunyi')
+					}
+				})
+			} else {
+				$('.item-cari').removeClass('sembunyi')
+			}
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+				$('.item-cari').removeClass('sembunyi')
+			})
+		})
 	</script>
 </body>
 </html>

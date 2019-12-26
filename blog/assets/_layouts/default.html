@@ -26,6 +26,10 @@
 		.full {
 			width: 100%;
 		}
+
+		.hapus {
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
@@ -56,7 +60,9 @@
 					isi: $('.isi').val(),
 					isi_html: marked($('.isi').val())
 				}).then(function(){
-					location.href = 'index.html'
+					blog.data.orderBy('id').reverse().limit(1).each(function(x){
+						location.href = 'tampil.html?' + x.id
+					})
 				})
 			})
 		{% endif %}
@@ -64,7 +70,7 @@
 		{% if page.halaman == 'index' %}
 			data_hasil = ''
 			blog.data.orderBy('id').reverse().each(function(x){
-				data_hasil += '<a href="tampil.html?' + x.id + '" class="list-group-item">' + x.judul + ' <span class="sembunyi">' + x.isi + '</span></a>'
+				data_hasil += '<a href="tampil.html?' + x.id + '" class="list-group-item item-cari">' + x.judul + ' <span class="sembunyi">' + x.isi + '</span></a>'
 			}).then(function(){
 				$('.isi').html('<div class="list-group">' + data_hasil + '</div>')
 			})
@@ -79,7 +85,55 @@
 			}).then(function(){
 				$('.isi').html(isi)
 			})
+			$('.edit').attr('href', 'edit.html' + location.search)
+			$('.hapus').click(function(){
+				blog.data.where({
+					id: Number(location.search.substring(1))
+				}).delete().then(function(){
+					location.href = 'index.html'
+				})
+			})
 		{% endif %}
+
+		{% if page.halaman == 'edit' %}
+			blog.data.where({
+				id: Number(location.search.substring(1))
+			}).each(function(x){
+				$('.judul').val(x.judul)
+				$('.isi').val(x.isi)
+			}).then(function(){
+				$('.edit').on('submit', function(x){
+					x.preventDefault()
+					blog.data.update(Number(location.search.substring(1)), {
+						judul: $('.judul').val(),
+						isi: $('.isi').val(),
+						isi_html: marked($('.isi').val())
+					}).then(function(){
+						location.href = 'tampil.html' + location.search
+					})
+				})	
+			})
+		{% endif %}
+
+		$('.cari').on('keyup', function(){
+			if ($('.cari').val() != ''){
+				$('.item-cari').addClass('sembunyi')
+				$('.item-cari').each(function(){
+					if ($(this).is(":contains(" + $('.cari').val() + ")")) {
+						$(this).removeClass('sembunyi')
+					}
+				})
+			} else {
+				$('.item-cari').removeClass('sembunyi')
+			}
+		})
+
+		$('.hapus').each(function(){
+			$(this).click(function(){
+				$(this).parent().find('.form-control').val('')
+				$('.item-cari').removeClass('sembunyi')
+			})
+		})
 	</script>
 </body>
 </html>
