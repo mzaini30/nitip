@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Materialize Color</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/materialize color/materialize color.css">
+	<style type="text/css">
+		body {
+			margin-top: 20px;
+			margin-bottom: 50px;
+		}
+
+		.list {
+			text-transform: capitalize;
+		}
+
+		.navbar-fixed-bottom .table {
+			margin-bottom: 0;
+		}
+
+		.navbar-fixed-bottom .btn {
+			width: 100%;
+		}
+
+		.purple.lighten-2,
+		.purple.lighten-1,
+		.deep-purple.lighten-2,
+		.deep-purple.lighten-1,
+		.indigo.lighten-2,
+		.indigo.lighten-1,
+		.brown.lighten-2,
+		.brown.lighten-1
+		{
+			color: white !important;
+		}
+
+		.cyan.accent-1,
+		.cyan.accent-2,
+		.cyan.accent-3,
+		.cyan.accent-4,
+		.teal.accent-1,
+		.teal.accent-2,
+		.teal.accent-3,
+		.teal.accent-4,
+		.green.accent-1,
+		.green.accent-2,
+		.green.accent-3,
+		.green.accent-4,
+		.light-green.accent-1,
+		.light-green.accent-2,
+		.light-green.accent-3,
+		.light-green.accent-4,
+		.lime.accent-1,
+		.lime.accent-2,
+		.lime.accent-3,
+		.lime.accent-4,
+		.yellow.accent-1,
+		.amber.accent-1,
+		.orange.accent-1,
+		.yellow.accent-2,
+		.yellow.accent-3,
+		.yellow.accent-4,
+		.yellow.tok
+		{
+			color: black !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="list-group">
+	<a href="#!" class="list-group-item lihat grey lighten-5 black-text">grey lighten-5</a>
+	<a href="#!" class="list-group-item lihat grey lighten-4 black-text">grey lighten-4</a>
+	<a href="#!" class="list-group-item lihat grey lighten-3 black-text">grey lighten-3</a>
+	<a href="#!" class="list-group-item lihat grey lighten-2 black-text">grey lighten-2</a>
+	<a href="#!" class="list-group-item lihat grey lighten-1 black-text">grey lighten-1</a>
+	<a href="#!" class="list-group-item lihat grey tok white-text">grey</a>
+	<a href="#!" class="list-group-item lihat grey darken-1 white-text">grey darken-1</a>
+	<a href="#!" class="list-group-item lihat grey darken-2 white-text">grey darken-2</a>
+	<a href="#!" class="list-group-item lihat grey darken-3 white-text">grey darken-3</a>
+	<a href="#!" class="list-group-item lihat grey darken-4 white-text">grey darken-4</a>
+	<a href="#!" class="list-group-item lihat grey accent-1 white-text">grey accent-1</a>
+	<a href="#!" class="list-group-item lihat grey accent-2 white-text">grey accent-2</a>
+	<a href="#!" class="list-group-item lihat grey accent-3 white-text">grey accent-3</a>
+	<a href="#!" class="list-group-item lihat grey accent-4 white-text">grey accent-4</a>
+</div>
+
+<div class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container">
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td><a href="index.html" class="btn btn-default">Beranda</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	</div>
+	<script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="vendor/swal/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		rgb2hex = function(rgb){
+			rgb = rgb.match(/^rgb\((\d+), \s*(\d+), \s*(\d+)\)/)
+			hex = function(x){
+				return ('0' + Number(x).toString(16).toUpperCase()).slice(-2)
+			}
+			return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
+		}
+		$('.lihat').each(function(){
+			$(this).click(function(x){
+				x.preventDefault()
+				swal($(this).text() + '\n' + $(this).css('background-color') + '\n' + rgb2hex($(this).css('background-color')))
+			})
+		})
+	</script>
+</body>
+</html>
