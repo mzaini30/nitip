@@ -63,8 +63,14 @@
 		})
 		$('.generate').click(function(x){
 			x.preventDefault()
-			nama_file = $('.judul').val()
+			tanggalan = new Date()
+			tanggal = ( '0' + tanggalan.getDate()).slice(-2)
+			bulan = ('0' + (tanggalan.getMonth() + 1)).slice(-2)
+			tahun = tanggalan.getYear() + 1900
+			nama_file = tahun + '-' + bulan + '-' + tanggal + '-' + $('.judul').val().replace(/[^0-9a-z ]/ig, '').replace(/ /g, '-') + '.md'
 			$('.nama-file').val(nama_file)
+			romaji = $('.romaji').val().split('\n')
+			terjemah = $('.terjemah').val().split('\n')
 			teks = ''
 			teks += '---\nlayout: post\ntitle: "' + $('.judul').val() + '"\nsumber: https://google.com\nyoutube: https://www.youtube.com/watch?v=DXHgBUMnlvY\n---\n\n'
 			$('.hasil').val(teks)
