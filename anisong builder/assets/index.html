@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Anisong Builder</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<style>
+		body {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="form-group">
+			<label for="">Judul</label>
+			<input type="text" class="form-control judul">
+		</div>
+		<div class="form-group">
+			<label for="">Link Youtube</label>
+			<input type="text" class="form-control youtube">
+		</div>
+		<div class="form-group">
+			<label for="">Sumber Lirik</label>
+			<input type="text" class="form-control sumber">
+		</div>
+		<div class="form-group">
+			<label for="">Romaji</label>
+			<textarea name="" id="" cols="30" rows="10" class="form-control romaji"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="">Terjemah</label>
+			<textarea name="" id="" cols="30" rows="10" class="form-control terjemah"></textarea>
+		</div>
+		<div class="form-group">
+			<a href="#!" class="btn btn-success generate">Generate</a>
+		</div>
+		<div class="form-group">
+			<label for="">Nama File</label>
+			<input type="text" class="form-control nama-file" readonly="">
+		</div>
+		<div class="form-group">
+			<label for="">Hasil</label>
+			<textarea name="" id="" cols="30" rows="10" class="form-control hasil" readonly=""></textarea>
+		</div>
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script>
+		$('.judul').val(localStorage.getItem('judul'))
+		$('.youtube').val(localStorage.getItem('youtube'))
+		$('.sumber').val(localStorage.getItem('sumber'))
+		$('.romaji').val(localStorage.getItem('romaji'))
+		$('.terjemah').val(localStorage.getItem('terjemah'))
+		$('.form-control').each(function(){
+			$(this).on('keyup', function(){
+				localStorage.setItem('judul', $('.judul').val())
+				localStorage.setItem('youtube', $('.youtube').val())
+				localStorage.setItem('sumber', $('.sumber').val())
+				localStorage.setItem('romaji', $('.romaji').val())
+				localStorage.setItem('terjemah', $('.terjemah').val())
+			})
+		})
+		$('.generate').click(function(x){
+			x.preventDefault()
+			nama_file = $('.judul').val()
+			$('.nama-file').val(nama_file)
+			teks = ''
+			teks += '---\nlayout: post\ntitle: "' + $('.judul').val() + '"\nsumber: https://google.com\nyoutube: https://www.youtube.com/watch?v=DXHgBUMnlvY\n---\n\n'
+			$('.hasil').val(teks)
+		});
+	</script>
+</body>
+</html>
