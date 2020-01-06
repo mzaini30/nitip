@@ -71,8 +71,12 @@
 			$('.nama-file').val(nama_file)
 			romaji = $('.romaji').val().split('\n')
 			terjemah = $('.terjemah').val().split('\n')
+			isi = ''
+			for (n in romaji){
+				isi += '**' + romaji[n] + '**\n\n' + terjemah[n] + '\n\n'
+			}
 			teks = ''
-			teks += '---\nlayout: post\ntitle: "' + $('.judul').val() + '"\nsumber: https://google.com\nyoutube: https://www.youtube.com/watch?v=DXHgBUMnlvY\n---\n\n'
+			teks += '---\nlayout: post\ntitle: "' + $('.judul').val() + '"\nsumber: https://google.com\nyoutube: https://www.youtube.com/watch?v=DXHgBUMnlvY\n---\n\n' + isi
 			$('.hasil').val(teks)
 		});
 	</script>
