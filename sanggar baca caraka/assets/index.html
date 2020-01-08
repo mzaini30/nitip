@@ -75,6 +75,10 @@ nama:
 		body {
 			margin-top: 20px;
 		}
+
+		.edit {
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
@@ -108,7 +112,7 @@ nama:
 				<label for="">Nomor halaman yang dibaca sebelumnya</label>
 				<div class="input-group">
 					<input type="tel" class="form-control halaman-kemarin" required="" readonly="">
-					<div class="input-group-addon">edit</div>
+					<div class="input-group-addon edit">edit</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -138,21 +142,35 @@ nama:
 		$('.halaman-kemarin').val(localStorage.getItem('halaman-kemarin'))
 		$('.halaman-hari-ini').val(localStorage.getItem('halaman-hari-ini'))
 		$('.review').val(localStorage.getItem('review'))
-		$('.form-control').each(function(){
-			$(this).on('keyup', function(){
-				localStorage.setItem('nama', $('.nama').val())
-				localStorage.setItem('nama-lainnya', $('.nama-lainnya').val())
-				localStorage.setItem('judul', $('.judul').val())
-				localStorage.setItem('penulis', $('.penulis').val())
-				localStorage.setItem('total', $('.total').val())
-				localStorage.setItem('halaman-kemarin', $('.halaman-kemarin').val())
-				localStorage.setItem('halaman-hari-ini', $('.halaman-hari-ini').val())
-				localStorage.setItem('review', $('.review').val())
-			})
+		$('.form-control').on('keyup', function(){
+			localStorage.setItem('nama', $('.nama').val())
+			localStorage.setItem('nama-lainnya', $('.nama-lainnya').val())
+			localStorage.setItem('judul', $('.judul').val())
+			localStorage.setItem('penulis', $('.penulis').val())
+			localStorage.setItem('total', $('.total').val())
+			localStorage.setItem('halaman-kemarin', $('.halaman-kemarin').val())
+			localStorage.setItem('halaman-hari-ini', $('.halaman-hari-ini').val())
+			localStorage.setItem('review', $('.review').val())
 		})
-		$('.submit').on('submit', function(x){
+		html_entity = function(x){
+			return String(x).replace(/ /g, '+').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+		}
+		$('.form').on('submit', function(x){
 			x.preventDefault()
-			location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSddw1oMd1wdTwDXADvsAcPAqwljr9TVeswZP3AtaE-Yvf7_yQ/viewform?usp=pp_url&entry.1627443370=' + localStorage.getItem('nama').replace(/ /g, '+') + '&entry.104462749=' + localStorage.getItem('nama-lainnya').replace(/ /g, '+') + '&entry.1497828114=' + localStorage.getItem('judul').replace(/ /g, '+') + '&entry.2126095252=' + localStorage.getItem('penulis').replace(/ /g, '+') + '&entry.865086509=' + localStorage.getItem('total') + '&entry.85753087=' + (Number(localStorage.getItem('halaman-hari-ini')) - Number(localStorage.getItem('halaman-kemarin'))) + '&entry.1940577114=' + localStorage.getItem('review')
+			selisih = Number(localStorage.getItem('halaman-hari-ini')) - Number(localStorage.getItem('halaman-kemarin'))
+			localStorage.setItem('halaman-kemarin', localStorage.getItem('halaman-hari-ini'))
+			localStorage.setItem('halaman-hari-ini', '')
+			location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSddw1oMd1wdTwDXADvsAcPAqwljr9TVeswZP3AtaE-Yvf7_yQ/viewform?usp=pp_url&entry.1627443370=' + html_entity(localStorage.getItem('nama')) + '&entry.104462749=' + html_entity(localStorage.getItem('nama-lainnya')) + '&entry.1497828114=' + html_entity(localStorage.getItem('judul')) + '&entry.2126095252=' + html_entity(localStorage.getItem('penulis')) + '&entry.865086509=' + localStorage.getItem('total') + '&entry.85753087=' + selisih + '&entry.1940577114=' + html_entity(localStorage.getItem('review'))
+		})
+		$('.reset').click(function(x){
+			x.preventDefault()
+		})
+		$('.edit').click(function(){
+			if ($('.halaman-kemarin').attr('readonly')){
+				$('.halaman-kemarin').removeAttr('readonly')
+			} else {
+				$('.halaman-kemarin').attr('readonly', 'readonly')
+			}
 		})
 	</script>
 </body>
