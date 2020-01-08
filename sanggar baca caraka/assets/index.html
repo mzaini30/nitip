@@ -71,6 +71,7 @@ nama:
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="vendor/swal/sweetalert2.min.css">
 	<style>
 		body {
 			margin-top: 20px;
@@ -130,6 +131,7 @@ nama:
 		</form>
 	</div>
 	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/swal/sweetalert2.min.js"></script>
 	<script>
 		if (!localStorage.getItem('nama')){
 			localStorage.setItem('halaman-kemarin', '0')
@@ -164,13 +166,21 @@ nama:
 		})
 		$('.reset').click(function(x){
 			x.preventDefault()
-			localStorage.setItem('judul', '')
-			localStorage.setItem('penulis', '')
-			localStorage.setItem('total', '')
-			localStorage.setItem('halaman-kemarin', '0')
-			localStorage.setItem('halaman-hari-ini', '')
-			localStorage.setItem('review', '')
-			location.href = 'index.html'
+			Swal.fire({
+				title: 'Yakin?',
+				icon: 'warning',
+				showCancelButton: true
+			}).then(function(result){
+				if (result.value){
+					localStorage.setItem('judul', '')
+					localStorage.setItem('penulis', '')
+					localStorage.setItem('total', '')
+					localStorage.setItem('halaman-kemarin', '0')
+					localStorage.setItem('halaman-hari-ini', '')
+					localStorage.setItem('review', '')
+					location.href = 'index.html'					
+				}
+			})
 		})
 		$('.edit').click(function(){
 			if ($('.halaman-kemarin').attr('readonly')){
