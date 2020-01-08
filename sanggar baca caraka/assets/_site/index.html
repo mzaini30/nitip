@@ -181,7 +181,7 @@
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-success submit" value="Lapor baca">
-				<a href="#!" class="btn btn-danger pull-right reset">Reset</a>
+				<a href="#!" class="btn btn-danger pull-right reset">Ganti buku</a>
 			</div>
 		</form>
 	</div>
@@ -220,6 +220,13 @@
 		})
 		$('.reset').click(function(x){
 			x.preventDefault()
+			localStorage.setItem('judul', '')
+			localStorage.setItem('penulis', '')
+			localStorage.setItem('total', '')
+			localStorage.setItem('halaman-kemarin', '0')
+			localStorage.setItem('halaman-hari-ini', '')
+			localStorage.setItem('review', '')
+			location.href = 'index.html'
 		})
 		$('.edit').click(function(){
 			if ($('.halaman-kemarin').attr('readonly')){
