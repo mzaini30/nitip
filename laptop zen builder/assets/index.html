@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laptop Zen Builder</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<style>
+		body {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="form-group">
+			<label for="">Judul</label>
+			<input type="text" class="form-control judul">
+		</div>
+		<div class="form-group">
+			<label for="">Bahasa</label>
+			<input type="text" class="form-control bahasa">
+		</div>
+		<div class="form-group">
+			<label for="">Keterangan</label>
+			<textarea name="" id="" cols="30" rows="10" class="form-control keterangan"></textarea>
+		</div>
+		<div class="form-group">
+			<a href="#!" class="btn btn-success generate">Generate</a>
+		</div>
+		<div class="form-group">
+			<label for="">Nama File</label>
+			<input type="text" class="form-control nama-file" readonly="">
+		</div>
+		<div class="form-group">
+			<label for="">Isi</label>
+			<textarea name=""= id="" cols="30" rows="10" class="form-control isi" readonly=""></textarea>
+		</div>
+		<div class="form-group">
+			<a href="#!" class="btn btn-danger reset">Reset</a>
+		</div>
+	</div>
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script>
+		$('.judul').val(localStorage.getItem('judul'))
+		$('.bahasa').val(localStorage.getItem('bahasa'))
+		$('.keterangan').val(localStorage.getItem('keterangan'))
+		$('.form-control').each(function(){
+			$(this).on('keyup', function(){
+				localStorage.setItem('judul', $('.judul').val())
+				localStorage.setItem('bahasa', $('.bahasa').val())
+				localStorage.setItem('keterangan', $('.keterangan').val())
+			})
+		})
+		$('.reset').click(function(x){
+			x.preventDefault()
+			$('.form-control').val('')
+		})
+		$('.generate').click(function(x){
+			x.preventDefault()
+			tanggalan = new Date()
+			tanggal = ('0' + tanggalan.getDate()).split('').splice(-2, 2).toString().replace(',', '')
+			bulan = ('0' + (tanggalan.getMonth() + 1)).split('').splice(-2, 2).toString().replace(',', '')
+			tahun = tanggalan.getFullYear()
+			nama_file = ''
+			nama_file += tahun + '-' + bulan + '-' + tanggal + '-' + $('.judul').val().replace(/[^a-z0-9]/ig, '-').replace(/-+/g, '-').toLowerCase() + '.md'
+			$('.nama-file').val(nama_file)
+			teks = ''
+			teks += '---\nlayout: post\ntitle: ' + $('.judul').val() + '\nbahasa: ' + $('.bahasa').val() + '\n---\n\n' + $('.keterangan').val()
+			$('.isi').val(teks)
+		})
+	</script>
+</body>
+</html>
